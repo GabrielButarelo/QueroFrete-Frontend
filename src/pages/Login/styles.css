@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Montserrat:wght@600&family=Oswald:wght@500&display=swap');
+
+.container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  width: 500px;
+  height: 400px;
+  padding: 20px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.login .form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login .form input {
+  margin-top: 20px;
+  height: 20px;
+  padding: 5px;
+  border: solid 1px #888;
+  border-radius: 5px;
+}
+
+.login .form a {
+  font-family: 'Dongle', sans-serif;
+  font-size: 25px;
+  color: #888;
+}
+
+.login .form button {
+  font-family: 'Dongle', sans-serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+  height: 40px;
+  background-color: #FFE849;
+  color: #444;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.login .form button:hover {
+  cursor: pointer;
+}
+
+.login p {
+  color: #444;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+}
