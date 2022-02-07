@@ -4,13 +4,13 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import FlashMessage from '../../components/FlashMessage';
 
-function Login() {
-  const [password, setPassword] = useState('');
+function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [logged, setLogged] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [hasSendEmail, setHasSendEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -20,18 +20,23 @@ function Login() {
       setErrorMessage('')
     }, 20000);
 
-    if (!password.length || !email.length) {
+    if (!email.length) {
       setIsEmpty(true)
       return;
-    } else if (password.length || email.length) {
-      setIsEmpty(false)
     }
 
-    const { data } = await axios.get(`http://localhost:3003/main/login/?password=${password}&email=${email}`);
+    const data = {
+      status: 200,
+    }
+
+    // const { data } = await axios.get(`http://localhost:3003/main/login/?password=${password}&email=${email}`);
 
     switch (data.status) {
       case 200:
-        setLogged(true)
+        setHasError(false)
+        setErrorMessage('')
+        setHasSendEmail(true)
+        setSuccessMessage('As informações de recuperação foram enviadas para o email!')
         return;
 
       case 400:
@@ -49,31 +54,23 @@ function Login() {
     setEmail(e.target.value);
   }
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value)
-  }
-
   return (
     <div className="container">
-      {!!logged && (navigate('/painel'))}
-      <div className="login">
+      <div className="forgot-password">
         <h1>QueroFrete</h1>
         <p>A tecnologia que conecta!</p>
-        <div className='horizontal-line' />
+        <div class="horizontal-line" />
         <div className="form">
-          <input type="email" onChange={(e) => handleChangeEmail(e)} />
-          <input type="password" onChange={(e) => handleChangePassword(e)} />
-          <a onClick={() => navigate('/forgot-password')}>
-            Esqueci minha senha
-          </a>
+          <label>Digite o email da sua conta abaixo e você receberá as instruções via email para recuperar sua senha</label>
+          <input type="email" placeholder='Digite seu email' onChange={(e) => handleChangeEmail(e)} />
           {!!isEmpty && (<FlashMessage duration={20} message='O email e a senha precisam ser preenchidos!' type='error' />)}
+          {!!hasSendEmail && (<FlashMessage duration={20} message={successMessage} type='success' />)}
           {!!hasError && (<FlashMessage duration={20} message={errorMessage} type='error' />)}
-          <button onClick={() => handleSubmit()}>Entrar</button>
+          <button onClick={() => handleSubmit()}>Recuperar Senha</button>
         </div>
-        <p>Não possui conta? <a href="#">Clique aqui</a> para criar uma.</p>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default ForgotPassword;
